@@ -7,8 +7,6 @@ var margin = {top: 100, right: 200, bottom: 100, left: 200},
     width = 980 - margin.left - margin.right,
     height = 5000 - margin.top - margin.bottom;
 
-
-
 var svg = d3.select("#chart").append("svg")
     .attr("width", width+margin.right+margin.left)
     .attr("height", height + margin.top + margin.bottom)
