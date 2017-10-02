@@ -91,7 +91,6 @@ function analyze (error, industry, other) {
           var text = "<strong>For: " + target + "</strong>\n";
           text += "<table>"
           awards.forEach(function(d) {
-            // text += d.sponsor + " " + format(d.value) + "\n";
             text += "<tr>" + "<td>" + d.sponsor + "</td>";
             text += "<td>" + format(d.value) + "</td></tr>";
           });
