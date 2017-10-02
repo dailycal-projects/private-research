@@ -1,5 +1,8 @@
 require('../scss/main.scss');
+require('./resizer.js');
 require('./charts/sankey-chart.js');
+//require('./charts/stacked-bar.js');
+
 
 
 window.$('.icon-facebook').click((e) => {
