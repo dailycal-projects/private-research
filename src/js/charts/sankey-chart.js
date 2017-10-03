@@ -1,22 +1,22 @@
 var d3 = require('d3');
-var d3Sankey = require('../../../dist/js/d3-sankey_test8.js')
+var d3Sankey = require('../../../dist/js/d3-sankey1.js')
 
-/* Tweaked slightly from https://bl.ocks.org/mbostock/7555321 */
 
 var margin = {top: 100, right: 200, bottom: 100, left: 200},
-    width = 980 - margin.left - margin.right,
-    height = 5000 - margin.top - margin.bottom;
+    width = 1080 - margin.left - margin.right,
+    height = 4000 - margin.top - margin.bottom;
 
-var svg = d3.select("#chart").append("svg")
+
+
+var svg = d3.select("#chart")
+  .append("svg")
     .attr("width", width+margin.right+margin.left)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform",
           "translate(" + margin.left  + "," + margin.top + ")");
 
-svg.attr("viewbox", "0 0 600 550")
-    .attr("preserveAspectRatio", "xMidYMid meet");
-
+var chartDiv = document.getElementById("chart");
 
 var formatNumber = d3.format(".2s"),
     format = function(d) { return "$" + formatNumber(d); },
@@ -50,21 +50,16 @@ var tooltip = d3.select("#chart")
   .style("border-radius", "6px")
   .style("font", "13px sans-serif")
   .style("white-space", "pre")
-  .text("tooltip")
-  .attr("display", "none");
-
-var order = 1;
+  .style("display", "none")
+  .attr("visibility", "hidden");
 
 d3.queue()
-  .defer(d3.json, "../../data/industry_0922.json")
+  .defer(d3.json, "../../data/industry_1002.json")
   .defer(d3.json, "../../data/other_sponsors.json")
   .await(analyze);
 
 function analyze (error, industry, other) {
   if (error) throw error;
-  console.log(other.hasOwnProperty('Bioengineering'));
-
-  sankey.order(!order);
   sankey(industry);
 
   link = link
@@ -73,35 +68,33 @@ function analyze (error, industry, other) {
       .attr("d", d3Sankey.sankeyLinkHorizontal())
       .attr("stroke-width", function(d) { return Math.max(1, d.width); })
     .on("mouseover", function(){
-      tooltip.style("display", "inline");
+      tooltip.attr("visibility", "visible")
+              .style("display", "inline");
     })
     .on("mousemove", function(d) {
       var linkSelect = d3.select(this).style("stroke-opacity", '0.5');
       var source = d.source.name;
       var target = d.target.name;
-
+      var text = "<strong>For: " + target + "\n</strong>";
+      text += "<table>"
 
       if (source === "Other") {
         if (!other.hasOwnProperty(target)) {
           console.log("So sad. Not found in others.");
         } else {
           var awards = other[target];
-          var text = "<strong>For: " + target + "</strong>\n";
-          text += "<table>"
           awards.forEach(function(d) {
-            text += "<tr>" + "<td>" + d.sponsor + "</td>";
+            text += "<tr align='left'><td>" + d.sponsor + "\t</td>";
             text += "<td>" + format(d.value) + "</td></tr>";
           });
           text += "</table>"
           tooltip.html(text);
         }
       } else {
-        tooltip.html(function() {
-          var text = "<strong>For: " + d.target.name + "</strong>\n";
-          text += "<table><tr><td>" + d.source.name + "\t"+ "</td>"
-          text += "<td>" + format(d.value) +"</td></tr></table>";
-          return text;
-        });
+        text += "<tr align='left'><td>" + source + "\t</td>"
+        text += "<td>" + format(d.value) + "</td></tr>";
+        text += "</table>"
+        tooltip.html(text);
       }
 
       tooltip.style("top", (d3.event.pageY-10)+"px")
@@ -109,7 +102,8 @@ function analyze (error, industry, other) {
     })
     .on("mouseout", function(d) {
       var linkSelect = d3.select(this).style("stroke-opacity", '0.2');
-      tooltip.style("display", "none");
+      tooltip.attr("visibility", "hidden")
+              .style("display", "none");
     });
 
   node = node
@@ -129,7 +123,7 @@ function analyze (error, industry, other) {
       .attr("y", function(d) { return (d.y1 + d.y0) / 2; })
       .attr("dy", "0.35em")
       .attr("text-anchor", "start")
-      .text(function(d) { return d.name; }) // d.cat + " " + format(d.value
+      .text(function(d) { return d.abbrev; })
       .style("font", "12px sans-serif")
       .style("font-weight", "bold")
     .filter(function(d) { return d.x0 < width/2; })
@@ -151,6 +145,4 @@ function analyze (error, industry, other) {
     .filter(function(d) { return d.x0 < width/2; })
       .attr("x", function(d) { return d.x1 - 20; })
       .attr("text-anchor", "end");
-
-
   };

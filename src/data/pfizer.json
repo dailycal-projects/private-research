@@ -1,0 +1,5 @@
+{"links": [{"source": 0, "target": 1, "value": 2904754},
+  {"source": 0, "target": 2, "value": 1224682}],
+ "nodes": [{"cat": "Pharmaceuticals", "name": "Pfizer"},
+  {"cat": "L&S Biological Sciences", "name": "QB3"},
+  {"cat": "L&S Biological Sciences", "name": "Innovative Genomics Initiative"}]}

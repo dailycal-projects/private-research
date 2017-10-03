@@ -1,0 +1,5 @@
+{"links": [{"source": 0, "target": 1, "value": 9069312},
+  {"source": 0, "target": 2, "value": 980712}],
+ "nodes": [{"cat": "Chemicals", "name": "BASF"},
+  {"cat": "College of Chemistry", "name": "Chemistry Dept"},
+  {"cat": "College of Engineering", "name": "EECS"}]}
