@@ -25,3 +25,65 @@
 #chart {
   text-align: center;
 }
+
+.nerd-box {
+	background: rgba($dc-blue, 0.1);
+	padding: 20px;
+	max-width: 600px;
+	margin: 0 auto 50px auto;
+
+	p {
+		font-family: $sans;
+		font-size: 12px;
+		margin-bottom: 0;
+	}
+}
+
+.header-label {
+	font-family: $sans;
+	font-size: 14px;
+	font-weight: 600;
+	fill: grey;
+}
+
+.header-line {
+	stroke: grey;
+	stroke-opacity: 0.5;
+}
+
+svg {
+	text {
+		font-family: $sans;
+	}
+}
+
+.tooltip {
+	text-align: left;
+	font-family: $sans;
+	font-size: 12px;
+
+	background: white;
+	box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.1);
+
+	hr {
+		margin: 0 0 -10px 0;
+	}
+
+	h4.header {
+		font-size: 12px;
+	}
+
+	table {
+		margin-top: 0;
+		width: 100%;
+
+		.left {
+			width: 90%;
+		}
+
+		.right {
+			width: 10%;
+			text-align: right;
+		}
+	}
+}

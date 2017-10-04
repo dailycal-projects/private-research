@@ -1,21 +1,45 @@
 var d3 = require('d3');
 var d3Sankey = require('../../../dist/js/d3-sankey1.js')
 
+const pageWidth = $(window).width();
+console.log(pageWidth);
 
-var margin = {top: 100, right: 200, bottom: 100, left: 200},
-    width = 1080 - margin.left - margin.right,
+var margin = {top: 50, right: 200, bottom: 100, left: 200},
+    width = pageWidth - margin.left - margin.right,
     height = 4000 - margin.top - margin.bottom;
 
-
 var svg = d3.select("#chart")
-  .append("div")
-  .classed("svg-container", true)
+  //.append("div")
+  //.classed("svg-container", true)
   .append("svg")
-    .attr("preserveAspectRatio", "xMinYMin meet")
-    .attr("viewBox", "0 0 " + (width+margin.right+margin.left) + " " + (height + margin.top + margin.bottom))
+    .attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom)
+    //.attr("preserveAspectRatio", "xMinYMin meet")
+    //.attr("viewBox", "0 0 " + (width+margin.right+margin.left) + " " + (height + margin.top + margin.bottom))
   .append("g")
     .attr("transform",
           "translate(" + margin.left  + "," + margin.top + ")");
+
+
+svg.append('text')
+  .attr('x', -5)
+  .attr('y', -20)
+  .text('Industry sponsor')
+  .attr('class', 'header-label')
+  .style('text-anchor', 'end')
+
+svg.append('text')
+  .attr('x', width - margin.right + 5)
+  .attr('y', -20)
+  .attr('class', 'header-label')
+  .text('UC Berkeley recipient');
+
+svg.append('line')
+  .attr('x1', -margin.left)
+  .attr('x2', width )
+  .attr('y1', -15)
+  .attr('y2', -15)
+  .attr('class', 'header-line')
 
 var chartDiv = document.getElementById("chart");
 
@@ -26,7 +50,7 @@ var formatNumber = d3.format(".2s"),
 var sankey = d3Sankey.sankey()
   .nodeWidth(15)
     .nodePadding(20)
-    .extent([[1, 1], [width - 1, height - 6]]);
+    .extent([[1, 1], [width - margin.right, height - 6]]);
 
 var link = svg.append("g")
     .attr("class", "links")
@@ -37,21 +61,22 @@ var link = svg.append("g")
 
 var node = svg.append("g")
     .attr("class", "nodes")
-    .attr("font-family", "sans-serif")
+    //.attr("font-family", "sans-serif")
     .attr("font-size", 10)
   .selectAll("g");
 
 var tooltip = d3.select("#chart")
   .append("div")
+  .attr('class', 'tooltip')
   .style("position", "absolute")
   .style("z-index", "10")
-  .style("color", "white")
+  //.style("color", "white")
   .style("padding", "8px")
-  .style("background-color", "rgba(0, 0, 0, 0.75)")
+  //.style("background-color", "rgba(0, 0, 0, 0.75)")
   .style("border-radius", "6px")
-  .style("font", "13px sans-serif")
   .style("white-space", "pre")
   .style("display", "none")
+  .style('width', '300px')
   .attr("visibility", "hidden");
 
 d3.queue()
@@ -69,37 +94,52 @@ function analyze (error, industry, other) {
       .attr("d", d3Sankey.sankeyLinkHorizontal())
       .attr("stroke-width", function(d) { return Math.max(1, d.width); })
     .on("mouseover", function(){
-      tooltip.attr("visibility", "visible")
-              .style("display", "inline");
+      tooltip
+        .attr("visibility", "visible")
+        .style("display", "inline");
     })
     .on("mousemove", function(d) {
       var linkSelect = d3.select(this).style("stroke-opacity", '0.5');
       var source = d.source.name;
       var target = d.target.name;
-      var text = "<strong>For: " + target + "\n</strong>";
-      text += "<table>"
+      var text = `<h4 class='header'>${target}</h4>`;
+
+      text += "<hr> <table>"
 
       if (source === "Other") {
         if (!other.hasOwnProperty(target)) {
           console.log("So sad. Not found in others.");
         } else {
           var awards = other[target];
-          awards.forEach(function(d) {
-            text += "<tr align='left'><td>" + d.sponsor + "\t</td>";
-            text += "<td>" + format(d.value) + "</td></tr>";
+          let displayAwards = awards.slice(0,5);
+          displayAwards.forEach(function(d) {
+            text += "<tr><td class='left'>" + d.sponsor + "\t</td>";
+            text += "<td class='right'>" + format(d.value) + "</td></tr>";
           });
+          if (awards.length > 5) {
+            const remaining = awards.length - 5;
+            text += `<tr><td colspan='2'>...and ${remaining} more</td></tr>`
+          }
           text += "</table>"
           tooltip.html(text);
         }
       } else {
-        text += "<tr align='left'><td>" + source + "\t</td>"
-        text += "<td>" + format(d.value) + "</td></tr>";
+        text += "<tr><td class='left'>" + source + "\t</td>"
+        text += "<td class='right'>" + format(d.value) + "</td></tr>";
         text += "</table>"
         tooltip.html(text);
       }
 
-      tooltip.style("top", (d3.event.pageY-10)+"px")
-            .style("left",(d3.event.pageX+10)+"px");
+      tooltip
+        .style("top", (d3.event.pageY - 10) + "px")
+        .style("left", () => {
+          if (d3.event.pageX < pageWidth / 2) {
+            return (d3.event.pageX + 10) + "px";
+          }
+          else {
+            return (d3.event.pageX - 300) + "px";
+          }
+        });
     })
     .on("mouseout", function(d) {
       var linkSelect = d3.select(this).style("stroke-opacity", '0.2');
@@ -125,7 +165,7 @@ function analyze (error, industry, other) {
       .attr("dy", "0.35em")
       .attr("text-anchor", "start")
       .text(function(d) { return d.abbrev; })
-      .style("font", "12px sans-serif")
+      //.style("font", "12px sans-serif")
       .style("font-weight", "bold")
     .filter(function(d) { return d.x0 < width/2; })
       .attr("x", function(d) { return d.x1 - 20; })
@@ -141,7 +181,7 @@ function analyze (error, industry, other) {
           return format(d.value);
         }
         return d.cat + " " + format(d.value); })
-      .style("font", "11px sans-serif")
+      //.style("font", "11px sans-serif")
       .style("font-weight", "normal")
     .filter(function(d) { return d.x0 < width/2; })
       .attr("x", function(d) { return d.x1 - 20; })
