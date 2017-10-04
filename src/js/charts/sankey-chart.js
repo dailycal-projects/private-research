@@ -3,15 +3,16 @@ var d3Sankey = require('../../../dist/js/d3-sankey1.js')
 
 
 var margin = {top: 100, right: 200, bottom: 100, left: 200},
-    width = 1080 - margin.left - margin.right,
+    width = (parseInt(d3.select('#chart').style('width'), 10)) - margin.left - margin.right,
     height = 4000 - margin.top - margin.bottom;
 
 
-
 var svg = d3.select("#chart")
+  .append("div")
+  .classed("svg-container", true)
   .append("svg")
-    .attr("width", width+margin.right+margin.left)
-    .attr("height", height + margin.top + margin.bottom)
+    .attr("preserveAspectRatio", "xMinYMin meet")
+    .attr("viewBox", "0 0 " + (width+margin.right+margin.left) + " " + (height + margin.top + margin.bottom))
   .append("g")
     .attr("transform",
           "translate(" + margin.left  + "," + margin.top + ")");
