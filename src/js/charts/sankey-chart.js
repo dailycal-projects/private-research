@@ -3,7 +3,7 @@ var d3Sankey = require('../../../dist/js/d3-sankey1.js')
 
 
 var margin = {top: 100, right: 200, bottom: 100, left: 200},
-    width = (parseInt(d3.select('#chart').style('width'), 10)) - margin.left - margin.right,
+    width = 1080 - margin.left - margin.right,
     height = 4000 - margin.top - margin.bottom;
 
 
