@@ -1,5 +1,5 @@
 var d3 = require('d3');
-var d3Sankey = require('../../../dist/js/d3-sankey1.js')
+var d3Sankey = require('../../../dist/js/d3-sankey_test8.js')
 
 
 var margin = {top: 100, right: 200, bottom: 100, left: 200},
@@ -61,6 +61,7 @@ d3.queue()
 
 function analyze (error, industry, other) {
   if (error) throw error;
+  sankey.order(0);
   sankey(industry);
 
   link = link
