@@ -80,8 +80,8 @@ var tooltip = d3.select("#chart")
   .attr("visibility", "hidden");
 
 d3.queue()
-  .defer(d3.json, "../../data/industry_1002.json")
-  .defer(d3.json, "../../data/other_sponsors.json")
+  .defer(d3.json, "../../data/industry_1003.json")
+  .defer(d3.json, "../../data/other_sponsors_1003.json")
   .await(analyze);
 
 function analyze (error, industry, other) {
