@@ -22,8 +22,16 @@
 @import 'credits';
 @import 'graphics';
 
+figure.no-gutters-phone {
+	max-width: 900px;
+}
+
 #chart {
   text-align: center;
+}
+
+#full-list {
+	margin: 0 auto;
 }
 
 .interstitial-link {
