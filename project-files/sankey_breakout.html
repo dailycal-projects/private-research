@@ -5,8 +5,8 @@
 <script>
 
 var margin = {top: 100, right: 200, bottom: 100, left: 200},
-    width = 900 - margin.left - margin.right,
-    height = 800 - margin.top - margin.bottom;
+    width = 650 - margin.left - margin.right, //750 /25
+    height = 600 - margin.top - margin.bottom; //700 675
 
 var svg = d3.select("#chart").append("svg")
     .attr("width", width+margin.left+margin.right)
@@ -121,33 +121,33 @@ function analyze (error, industry, other) {
       .attr("fill", function(d) {
         return color(d.cat); });
 
-  node.append("text")
-      .attr("x", function(d) { return d.x0 + 20; })
-      .attr("y", function(d) { return (d.y1 + d.y0) / 2; })
-      .attr("dy", "0.35em")
-      .attr("text-anchor", "start")
-      .text(function(d) { return d.abbrev; }) // d.cat + " " + format(d.value
-      .style("font", "12px sans-serif")
-      .style("font-weight", "bold")
-    .filter(function(d) { return d.x0 < width/2; })
-      .attr("x", function(d) { return d.x1 - 20; })
-      .attr("text-anchor", "end");
-
-  node.append("text")
-      .attr("x", function(d) { return d.x0 + 20; })
-      .attr("y", function(d) { return ((d.y1 + d.y0) / 2) + 11; })
-      .attr("dy", "0.35em")
-      .attr("text-anchor", "start")
-      .text(function(d) {
-        if (d.cat === d.name) {
-          return format(d.value);
-        }
-        return d.cat + " " + format(d.value); })
-      .style("font", "11px sans-serif")
-      .style("font-weight", "normal")
-    .filter(function(d) { return d.x0 < width/2; })
-      .attr("x", function(d) { return d.x1 - 20; })
-      .attr("text-anchor", "end");
+  // node.append("text")
+  //     .attr("x", function(d) { return d.x0 + 20; })
+  //     .attr("y", function(d) { return (d.y1 + d.y0) / 2; })
+  //     .attr("dy", "0.35em")
+  //     .attr("text-anchor", "start")
+  //     .text(function(d) { return d.abbrev; }) // d.cat + " " + format(d.value
+  //     .style("font", "12px sans-serif")
+  //     .style("font-weight", "bold")
+  //   .filter(function(d) { return d.x0 < width/2; })
+  //     .attr("x", function(d) { return d.x1 - 20; })
+  //     .attr("text-anchor", "end");
+  // //
+  // node.append("text")
+  //     .attr("x", function(d) { return d.x0 + 20; })
+  //     .attr("y", function(d) { return ((d.y1 + d.y0) / 2) + 11; })
+  //     .attr("dy", "0.35em")
+  //     .attr("text-anchor", "start")
+  //     .text(function(d) {
+  //       if (d.cat === d.name) {
+  //         return format(d.value);
+  //       }
+  //       return d.cat + " " + format(d.value); })
+  //     .style("font", "11px sans-serif")
+  //     .style("font-weight", "normal")
+  //   .filter(function(d) { return d.x0 < width/2; })
+  //     .attr("x", function(d) { return d.x1 - 20; })
+  //     .attr("text-anchor", "end");
 
 
   };
