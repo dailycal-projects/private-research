@@ -1,10 +1,11 @@
 var d3 = require('d3');
 var d3Sankey = require('../../../dist/js/d3-sankey_test8.js')
 
+const containerWidth = $('#chart').width();
 const pageWidth = $(window).width();
 
 var margin = {top: 50, right: 200, bottom: 100, left: 200},
-    width = pageWidth - margin.left - margin.right,
+    width = containerWidth - margin.left - margin.right,
     height = 4000 - margin.top - margin.bottom;
 
 var svg = d3.select("#chart")
@@ -12,14 +13,13 @@ var svg = d3.select("#chart")
   //.classed("svg-container", true)
   .append("svg")
     .attr('id', 'full-list')
-    .attr('width', width + margin.left + margin.right)
+    .attr('width', containerWidth)
     .attr('height', height + margin.top + margin.bottom)
     //.attr("preserveAspectRatio", "xMinYMin meet")
     //.attr("viewBox", "0 0 " + (width+margin.right+margin.left) + " " + (height + margin.top + margin.bottom))
   .append("g")
     .attr("transform",
           "translate(" + margin.left  + "," + margin.top + ")");
-
 
 svg.append('text')
   .attr('x', -5)
@@ -29,14 +29,14 @@ svg.append('text')
   .style('text-anchor', 'end')
 
 svg.append('text')
-  .attr('x', width - margin.right + 5)
+  .attr('x', width)
   .attr('y', -20)
   .attr('class', 'header-label')
   .text('UC Berkeley recipient');
 
 svg.append('line')
   .attr('x1', -margin.left)
-  .attr('x2', width )
+  .attr('x2', width + margin.right )
   .attr('y1', -15)
   .attr('y2', -15)
   .attr('class', 'header-line')
@@ -50,7 +50,7 @@ var formatNumber = d3.format(".2s"),
 var sankey = d3Sankey.sankey()
   .nodeWidth(15)
     .nodePadding(20)
-    .extent([[1, 1], [width - margin.right, height - 6]]);
+    .extent([[1, 1], [width, height - 6]]);
 
 var link = svg.append("g")
     .attr("class", "links")
