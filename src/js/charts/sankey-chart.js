@@ -2,7 +2,6 @@ var d3 = require('d3');
 var d3Sankey = require('../../../dist/js/d3-sankey_test8.js')
 
 const pageWidth = $(window).width();
-console.log(pageWidth);
 
 var margin = {top: 50, right: 200, bottom: 100, left: 200},
     width = pageWidth - margin.left - margin.right,
@@ -12,6 +11,7 @@ var svg = d3.select("#chart")
   //.append("div")
   //.classed("svg-container", true)
   .append("svg")
+    .attr('id', 'full-list')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
     //.attr("preserveAspectRatio", "xMinYMin meet")
