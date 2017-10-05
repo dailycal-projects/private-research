@@ -182,7 +182,6 @@ function analyze (error, industry, other) {
           return format(d.value);
         }
         return d.cat + " " + format(d.value); })
-      //.style("font", "11px sans-serif")
       .style("font-weight", "normal")
     .filter(function(d) { return d.x0 < width/2; })
       .attr("x", function(d) { return d.x1 - 20; })
