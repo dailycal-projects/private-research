@@ -2,6 +2,12 @@ require('../scss/main.scss');
 require('./resizer.js');
 require('./charts/sankey-chart.js');
 
+$('.scroll-to').click(function(e) {
+	console.log($('#full-list').offset().top );
+	$('html, body').animate({
+        scrollTop: $('#full-list').offset().top 
+    }, 2000);
+});
 
 window.$('.icon-facebook').click((e) => {
   e.preventDefault();
@@ -16,3 +22,4 @@ window.$('.icon-twitter').click((e) => {
   const status = encodeURIComponent(`${window.tweetText} ${uri}`);
   window.open(`https://twitter.com/home?status=${status}`);
 });
+
