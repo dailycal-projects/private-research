@@ -45,7 +45,7 @@ var chartDiv = document.getElementById("chart");
 
 var formatNumber = d3.format(".2s"),
     format = function(d) { return "$" + formatNumber(d); },
-    color = d3.scaleOrdinal(d3.schemeCategory20);
+    color = {"sponsors": "#9467BD", "targets": "#AEC7E8"};
 
 var sankey = d3Sankey.sankey()
   .nodeWidth(15)
@@ -158,7 +158,7 @@ function analyze (error, industry, other) {
       .attr("height", function(d) { return d.y1 - d.y0; })
       .attr("width", function(d) { return d.x1 - d.x0; })
       .attr("fill", function(d) {
-        return color(d.cat); });
+        return color[d.type]; });
 
   const label = node.append("text")
       .attr("x", function(d) { return d.x0 + 20; })
