@@ -1,5 +1,5 @@
 var d3 = require('d3');
-var d3Sankey = require('../../../dist/js/d3-sankey_test8.js')
+var d3Sankey = require('../../../dist/js/d3-sankey1.js')
 
 const containerWidth = $('#chart').width();
 const pageWidth = $(window).width();
@@ -74,7 +74,6 @@ var tooltip = d3.select("#chart")
   .style("padding", "8px")
   //.style("background-color", "rgba(0, 0, 0, 0.75)")
   .style("border-radius", "6px")
-  .style("white-space", "pre")
   .style("display", "none")
   .style('width', '300px')
   .attr("visibility", "hidden");
@@ -86,7 +85,6 @@ d3.queue()
 
 function analyze (error, industry, other) {
   if (error) throw error;
-  sankey.order(0);
   sankey(industry);
 
   link = link
