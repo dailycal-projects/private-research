@@ -34,8 +34,12 @@
             <div id="global-header">
                 <div id="global-branding">
                   <div class="navbar-dc-logo">
-                   <a class="navbar-brand" href="http://www.dailycal.org/" title="The Daily Californian" target="_top">
-                     the Daily Californian
+                   <a href="http://www.dailycal.org/" title="The Daily Californian" target="_top">
+                   {% if env == 'production' %}
+                   <img class="navbar-brand" src="images/masthead.png" />
+                   {% else %}
+                   <img class="navbar-brand" src="../../images/masthead.png" />
+                   {% endif %}
                    </a>
                   </div>
                 </div>
