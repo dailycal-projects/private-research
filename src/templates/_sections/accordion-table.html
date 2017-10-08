@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <style>
+
+      table {
+        text-align: left;
+        table-layout: fixed;
+        width: 500px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"></div>
+</div>
+<script type="text/javascript">
+
+d3.select(".container")
+  .style("max-width", "500px");
+
+var formatNumber = d3.format(".2s"),
+    format = function(d) { return "$" + formatNumber(d); };
+
+var first = 0;
+
+d3.json("../../data/accordion_table.json", function(data) {
+  Object.keys(data).forEach(function(d) {
+    var href = d.replace(/&/g, "").replace(/,./g, "").replace(/'/g, "").replace(/ /g, "_");
+
+    d3.select("#accordion")
+      .append("div")
+      .attr("class", "panel panel-default")
+      .attr("id", `p_${href}`)
+      .append("div")
+      .attr("class", "panel-heading")
+      .attr("role", "tab")
+      .attr("id", `h_${href}`)
+      .append("h4")
+      .attr("class", "panel-title")
+      .append("a")
+      .attr("data-toggle", "collapse")
+      .attr("data-parent", "#accordion")
+      .attr("href", `#${href}`)
+      .attr("aria-expanded", "false")
+      .attr("aria-controls", href)
+      .text(d);
+
+    var listing = d3.select(`#p_${href}`)
+                    .append("div")
+                    .attr("id", href)
+                    .attr("class", "panel-collapse collapse")
+                    .attr("role", "tabpanel")
+                    .attr("aria-labelledby", `h_${href}`)
+                    .append("div")
+                    .attr("class", "panel-body");
+
+    var text = "<table>";
+    data[d].forEach(function(d) {
+      text += "<tr><td class='left'>" + d.sponsor + "\t</td>";
+      text += "<td class='right'>" + format(d.value) + "</td></tr>";
+    });
+    text += "</table>";
+
+    listing.html(text);
+    first += 1;
+  });
+});
+
+</script>
+</body>
+</html>
