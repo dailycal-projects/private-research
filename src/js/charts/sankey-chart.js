@@ -1,14 +1,14 @@
 var d3 = require('d3');
 var d3Sankey = require('../../../dist/js/d3-sankey1.js')
 
-const containerWidth = $('#chart').width();
+const containerWidth = $('#sankey-chart').width();
 const pageWidth = $(window).width();
 
 var margin = {top: 50, right: 200, bottom: 100, left: 200},
     width = containerWidth - margin.left - margin.right,
     height = 4000 - margin.top - margin.bottom;
 
-var svg = d3.select("#chart")
+var svg = d3.select("#sankey-chart")
   //.append("div")
   //.classed("svg-container", true)
   .append("svg")
