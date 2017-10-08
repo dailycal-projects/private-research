@@ -1,5 +1,5 @@
 var d3 = require('d3');
-var d3Sankey = require('../../../dist/js/d3-sankey1.js')
+var d3Sankey = require('../d3-sankey.js')
 
 const containerWidth = $('#sankey-chart').width();
 const pageWidth = $(window).width();
@@ -9,28 +9,23 @@ var margin = {top: 50, right: 200, bottom: 100, left: 200},
     height = 4000 - margin.top - margin.bottom;
 
 var svg = d3.select("#sankey-chart")
-  //.append("div")
-  //.classed("svg-container", true)
   .append("svg")
-    .attr('id', 'full-list')
-    .attr('width', containerWidth)
-    .attr('height', height + margin.top + margin.bottom)
-    //.attr("preserveAspectRatio", "xMinYMin meet")
-    //.attr("viewBox", "0 0 " + (width+margin.right+margin.left) + " " + (height + margin.top + margin.bottom))
+  .attr('id', 'full-list')
+  .attr('width', containerWidth)
+  .attr('height', height + margin.top + margin.bottom)
   .append("g")
-    .attr("transform",
-          "translate(" + margin.left  + "," + margin.top + ")");
+  .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 svg.append('text')
   .attr('x', -5)
-  .attr('y', -20)
+  .attr('y', -30)
   .text('Industry sponsor')
   .attr('class', 'header-label')
   .style('text-anchor', 'end')
 
 svg.append('text')
   .attr('x', width)
-  .attr('y', -20)
+  .attr('y', -30)
   .attr('class', 'header-label')
   .text('UC Berkeley recipient');
 
@@ -40,8 +35,6 @@ svg.append('line')
   .attr('y1', -15)
   .attr('y2', -15)
   .attr('class', 'header-line')
-
-var chartDiv = document.getElementById("chart");
 
 var formatNumber = d3.format(".2s"),
     format = function(d) { return "$" + formatNumber(d); },
@@ -54,28 +47,15 @@ var sankey = d3Sankey.sankey()
 
 var link = svg.append("g")
     .attr("class", "links")
-    .attr("fill", "none")
-    .attr("stroke", "#000")
-    .attr("stroke-opacity", 0.2)
   .selectAll("path");
 
 var node = svg.append("g")
     .attr("class", "nodes")
-    //.attr("font-family", "sans-serif")
-    .attr("font-size", 10)
   .selectAll("g");
 
-var tooltip = d3.select("#chart")
+var tooltip = d3.select("#sankey-chart")
   .append("div")
   .attr('class', 'tooltip')
-  .style("position", "absolute")
-  .style("z-index", "10")
-  //.style("color", "white")
-  .style("padding", "8px")
-  //.style("background-color", "rgba(0, 0, 0, 0.75)")
-  .style("border-radius", "6px")
-  .style("display", "none")
-  .style('width', '300px')
   .attr("visibility", "hidden");
 
 d3.queue()
@@ -83,7 +63,7 @@ d3.queue()
   .defer(d3.json, "../../data/other_sponsors_1003.json")
   .await(analyze);
 
-function analyze (error, industry, other) {
+function analyze(error, industry, other) {
   if (error) throw error;
   sankey(industry);
 
@@ -164,7 +144,6 @@ function analyze (error, industry, other) {
       .attr("dy", "0.35em")
       .attr("text-anchor", "start")
       .text(function(d) { return d.abbrev; })
-      //.style("font", "12px sans-serif")
       .style("font-weight", "bold")
     .filter(function(d) { return d.x0 < width/2; })
       .attr("x", function(d) { return d.x1 - 20; })
