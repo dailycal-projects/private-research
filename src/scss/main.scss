@@ -28,17 +28,21 @@ hr {
 	max-width: 600px;
 }
 
-table {
+table.table-body {
 	margin: 30px auto 0 auto;
 	max-width: 600px;
 	width: 100%;
 	font-family: $sans;
 
 	border-collapse: separate; /* allow spacing between cell borders */
-    border-spacing: 0 3px; 
+    border-spacing: 0 6px; 
 
     th {
     	border-bottom: 1px solid rgba(black, 0.3);
+    }
+
+    td {
+    	border-bottom: 1px solid rgba(black, 0.1);
     }
 
 	.right {
