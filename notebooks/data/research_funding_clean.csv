@@ -1833,7 +1833,7 @@
 1831,Netherlands Organization for Scientific Research,Vice Chancellor - Research,Academic Research Units,IHD Institute of Human Development,Not for Profit,0,0,0
 1832,Netherlands Organization for Scientific Research,Vice Chancellor - Research,VC Research Museums & Field Stations ,Essig Museum of Entomology,Not for Profit,125587,0,0
 1833,New Jersey Department of Education,Vice Chancellor - Research,Academic Research Units,IRLE Institute for Research on Labor and Employment,Non Federal Governmental,0,0,35549
-1834,"New Profit, Inc.",Vice Chancellor for Equity & Inclusion,Office of Equity & Inclusion,Center for Educational Partnerships,Industry,179976,239968,439967
+1834,"New Profit, Inc.",Vice Chancellor for Equity & Inclusion,Office of Equity & Inclusion,Center for Educational Partnerships,Not for Profit,179976,239968,439967
 1835,"New Vision Microelectronics, Inc.",Colleges,College of Engineering,EECS Electrical Engineering & Computer Sciences,Industry,0,0,250000
 1836,New York Stem Cell Foundation,L&S College of Letters & Sciences,L&S Biological Sciences,MCB Molecular & Cell Biology,Not for Profit,0,0,1500000
 1837,New York University,L&S College of Letters & Sciences,Division of Social Sciences,Political Science,Not for Profit,0,0,169217
@@ -1862,14 +1862,14 @@
 1860,Novartis Institutes for BioMedical Research,L&S College of Letters & Sciences,L&S Biological Sciences,MCB Molecular & Cell Biology,Industry,0,0,0
 1861,ONDRAF/NIRAS,Colleges,College of Engineering,Nuclear Engineering,Non Federal Governmental,0,724938,0
 1862,Oak Foundation,Schools,School of Law,Boalt Law School,Not for Profit,0,0,450000
-1863,Oak Ridge National Laboratory,Colleges,CNR College of Natural Resources,Plant & Microbial Biology Department,Industry,0,0,0
-1864,Oak Ridge National Laboratory,Colleges,College of Engineering,EECS Electrical Engineering & Computer Sciences,Industry,0,20000,0
-1865,Oak Ridge National Laboratory,Colleges,College of Engineering,ERSO Engineering Research Support Organization,Industry,0,0,0
-1866,Oak Ridge National Laboratory,Colleges,College of Engineering,Mechanical Engineering,Industry,0,819421,0
-1867,Oak Ridge National Laboratory,Colleges,College of Engineering,Nuclear Engineering,Industry,61500,50000,236271
-1868,Oak Ridge National Laboratory,L&S College of Letters & Sciences,Division of Physical Sciences,Earth & Planetary Science,Industry,0,101724,101854
-1869,Oak Ridge National Laboratory,L&S College of Letters & Sciences,Division of Physical Sciences,Physics,Industry,0,0,0
-1870,Oak Ridge National Laboratory,Vice Chancellor - Research,Academic Research Units,SSL Space Sciences Lab,Industry,151747,0,0
+1863,Oak Ridge National Laboratory,Colleges,CNR College of Natural Resources,Plant & Microbial Biology Department,Federal,0,0,0
+1864,Oak Ridge National Laboratory,Colleges,College of Engineering,EECS Electrical Engineering & Computer Sciences,Federal,0,20000,0
+1865,Oak Ridge National Laboratory,Colleges,College of Engineering,ERSO Engineering Research Support Organization,Federal,0,0,0
+1866,Oak Ridge National Laboratory,Colleges,College of Engineering,Mechanical Engineering,Federal,0,819421,0
+1867,Oak Ridge National Laboratory,Colleges,College of Engineering,Nuclear Engineering,Federal,61500,50000,236271
+1868,Oak Ridge National Laboratory,L&S College of Letters & Sciences,Division of Physical Sciences,Earth & Planetary Science,Federal,0,101724,101854
+1869,Oak Ridge National Laboratory,L&S College of Letters & Sciences,Division of Physical Sciences,Physics,Federal,0,0,0
+1870,Oak Ridge National Laboratory,Vice Chancellor - Research,Academic Research Units,SSL Space Sciences Lab,Federal,151747,0,0
 1871,Oakland Raiders,L&S College of Letters & Sciences,Division of Social Sciences,The Social Science Matrix,Industry,0,0,0
 1872,"ObjectVideo, Inc.",Colleges,College of Engineering,EECS Electrical Engineering & Computer Sciences,Industry,692232,0,0
 1873,Office for the Coordination of Social Policies,Vice Chancellor - Research,VC Res Other Research Units,Center of Evaluation for Global Action,Non Federal Governmental,0,0,499810
