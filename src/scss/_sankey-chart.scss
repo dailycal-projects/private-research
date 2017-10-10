@@ -1,6 +1,5 @@
-
-
 #sankey-chart {
+
 	text {
 		font-family: $sans;
 	}
@@ -26,6 +25,12 @@
 		font-size: 10px;
 	}
 
+}
+
+@media (max-width: $width-medium) {
+    #sankey-chart {
+    	display: none;
+    }
 }
 
 .tooltip {

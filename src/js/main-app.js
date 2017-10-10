@@ -1,6 +1,7 @@
 require('../scss/main.scss');
 require('./resizer.js');
 require('./charts/sankey-chart.js');
+require('./accordion-table.js');
 
 $('.scroll-to').click(function(e) {
 	console.log($('#full-list').offset().top );

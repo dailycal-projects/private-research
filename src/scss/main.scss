@@ -24,6 +24,33 @@
 
 @import 'sankey-chart';
 
+#accordion {
+	display: none;
+	max-width: 600px;
+	margin: 0 auto;
+
+	//font-family: $sans;
+
+	.recipient {
+		margin-bottom: 30px;
+	}
+
+	table {
+		width: 100%;
+
+		.right {
+			text-align: right;
+		}
+	}
+}
+
+@media (max-width: $width-medium) {
+    #accordion {
+    	display: block;
+    	margin-top: 40px;
+    }
+}
+
 hr {
 	max-width: 600px;
 }
