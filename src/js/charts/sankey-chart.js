@@ -119,7 +119,7 @@ function draw() {
   let containerWidth = $('#sankey-chart').width();
   let pageWidth = $(window).width();
 
-  var margin = {top: 50, right: 180, bottom: 100, left: 180},
+  var margin = {top: 50, right: 180, bottom: 50, left: 180},
       width = containerWidth - margin.left - margin.right;
 
   if (containerWidth < 980) {
