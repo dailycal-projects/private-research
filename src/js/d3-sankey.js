@@ -45,6 +45,10 @@ function ascendingBreadth(a, b) {
   return a.y0 - b.y0;
 }
 
+function descendingValue(a, b) {
+	return b.value - a.value;
+}
+
 function value(d) {
   return d.value;
 }
@@ -161,27 +165,24 @@ var sankey = function() {
 
   // Compute the value (size) of each node by summing the associated links.
   function computeNodeValues(graph) {
+
     graph.nodes.forEach(function(node) {
-			var nonneg_value_source = 0;
-			var nonneg_value_target = 0;
-			node.sourceLinks.forEach(function(d) {
-				if (d.value > 0) {
-					nonneg_value_source += d.value;
-				}
-			});
-
-			node.targetLinks.forEach(function(d) {
-				if (d.value > 0) {
-					nonneg_value_target += d.value;
-				}
-			});
-			node.value = Math.max(nonneg_value_source, nonneg_value_target);
-
-			node.with_neg = Math.max(
+			node.value = Math.max(
         d3Array.sum(node.sourceLinks, value),
         d3Array.sum(node.targetLinks, value)
       );
+
+			var source_neg = 0;
+			var target_neg = 0;
+			node.sourceLinks.forEach(function(d) {
+				source_neg += d.with_neg;
+			});
+			node.targetLinks.forEach(function(d) {
+				target_neg += d.with_neg;
+			});
+			node.with_neg = Math.max(source_neg, target_neg);
     });
+
   }
 
   // Iteratively assign the depth (x-position) for each node.
@@ -283,7 +284,13 @@ var sankey = function() {
             i;
 
         // Push any overlapping nodes down.
-        // nodes.sort(ascendingBreadth);
+        nodes.sort(function(a, b) {
+					if (a.abbrev != "Other" && b.abbrev != "Other") {
+						return b.value - a.value;
+					} else {
+						return a.value - b.value;
+					}
+				});
         for (i = 0; i < n; ++i) {
           node = nodes[i];
           dy = y - node.y0;

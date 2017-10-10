@@ -134,6 +134,7 @@ function analyze(error, industry, other) {
               .style("display", "none");
     });
 
+
   node = node
     .data(industry.nodes)
     .enter().append("g");
@@ -163,7 +164,6 @@ function analyze(error, industry, other) {
       .attr("dy", "0.35em")
       .attr("text-anchor", "start")
       .text(function(d) {
-        console.log(d);
         if (d.cat === d.name) {
           return format(d.with_neg);
         }
