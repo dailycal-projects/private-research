@@ -1,3 +1,5 @@
+const data = require("../data/accordion_table.json");
+
 const d3 = require('d3')
 
 var formatNumber = d3.format(".2s"),
@@ -5,7 +7,6 @@ var formatNumber = d3.format(".2s"),
 
 var first = 0;
 
-d3.json("../../data/accordion_table.json", function(data) {
   Object.keys(data).forEach(function(d) {
     var href = d.replace(/&/g, "").replace(/,./g, "").replace(/'/g, "").replace(/ /g, "_");
 
@@ -50,4 +51,3 @@ d3.json("../../data/accordion_table.json", function(data) {
     listing.html(text);
     first += 1;
   });
-});

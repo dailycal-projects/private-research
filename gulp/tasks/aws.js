@@ -19,7 +19,7 @@ module.exports = () => {
     accessKeyId: process.env.awsAccessKey,
     secretAccessKey: process.env.awsSecretKey,
     params: {
-      Bucket: 'com.politico.interactives.politico.com',
+      Bucket: 'stage-projects.dailycal.org',
       CloudFront: 'E3V6OHE700RHMR',
     },
   });
