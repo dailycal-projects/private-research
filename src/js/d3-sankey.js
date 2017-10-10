@@ -162,7 +162,22 @@ var sankey = function() {
   // Compute the value (size) of each node by summing the associated links.
   function computeNodeValues(graph) {
     graph.nodes.forEach(function(node) {
-      node.value = Math.max(
+			var nonneg_value_source = 0;
+			var nonneg_value_target = 0;
+			node.sourceLinks.forEach(function(d) {
+				if (d.value > 0) {
+					nonneg_value_source += d.value;
+				}
+			});
+
+			node.targetLinks.forEach(function(d) {
+				if (d.value > 0) {
+					nonneg_value_target += d.value;
+				}
+			});
+			node.value = Math.max(nonneg_value_source, nonneg_value_target);
+
+			node.with_neg = Math.max(
         d3Array.sum(node.sourceLinks, value),
         d3Array.sum(node.targetLinks, value)
       );

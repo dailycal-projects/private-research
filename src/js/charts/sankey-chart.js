@@ -67,8 +67,16 @@ function analyze(error, industry, other) {
   if (error) throw error;
   sankey(industry);
 
+  var links_nonneg = {"links": []};
+
+  industry.links.forEach(function(d) {
+    if (d.value > 0) {
+      links_nonneg["links"].push(d);
+    }
+  });
+
   link = link
-    .data(industry.links)
+    .data(links_nonneg.links)
     .enter().append("path")
       .attr("d", d3Sankey.sankeyLinkHorizontal())
       .attr("stroke-width", function(d) { return Math.max(1, d.width); })
@@ -155,10 +163,11 @@ function analyze(error, industry, other) {
       .attr("dy", "0.35em")
       .attr("text-anchor", "start")
       .text(function(d) {
+        console.log(d);
         if (d.cat === d.name) {
-          return format(d.value);
+          return format(d.with_neg);
         }
-        return d.cat + " " + format(d.value); })
+        return d.cat + " " + format(d.with_neg); })
       .style("font-weight", "normal")
     .filter(function(d) { return d.x0 < width/2; })
       .attr("x", function(d) { return d.x1 - 20; })
