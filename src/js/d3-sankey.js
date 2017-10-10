@@ -286,9 +286,9 @@ var sankey = function() {
         // Push any overlapping nodes down.
         nodes.sort(function(a, b) {
 					if (a.abbrev != "Other" && b.abbrev != "Other") {
-						return b.value - a.value;
+						return b.with_neg - a.with_neg;
 					} else {
-						return a.value - b.value;
+						return a.with_neg - b.with_neg;
 					}
 				});
         for (i = 0; i < n; ++i) {
