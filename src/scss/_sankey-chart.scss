@@ -28,7 +28,7 @@
 }
 
 @media (max-width: $width-medium) {
-    #sankey-chart {
+    #sankey-chart, .sankey-helper-text {
     	display: none;
     }
 }
