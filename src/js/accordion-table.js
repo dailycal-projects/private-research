@@ -12,26 +12,14 @@ var first = 0;
 
     d3.select("#accordion")
       .append("div")
-      //.attr("class", "panel panel-default")
       .attr("id", `p_${href}`)
       .attr('class', 'recipient')
-      //.append("div")
-      //.attr("class", "panel-heading")
-      //.attr("role", "tab")
-      //.attr("id", `h_${href}`)
       .append("h4")
-      //.attr("class", "panel-title")
-      //.append("a")
-      //.attr("data-toggle", "collapse")
-      //.attr("data-parent", "#accordion")
       .attr("href", `#${href}`)
-      //.attr("aria-expanded", "false")
-      //.attr("aria-controls", href)
       .text(d);
 
     var listing = d3.select(`#p_${href}`)
-                    .append("div")
-                    //.attr("class", "panel-body");
+                    .append("div");
 
     var text = "<table>";
 

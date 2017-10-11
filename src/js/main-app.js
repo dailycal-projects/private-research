@@ -4,9 +4,8 @@ require('./charts/sankey-chart.js');
 require('./accordion-table.js');
 
 $('.scroll-to').click(function(e) {
-	console.log($('#full-list').offset().top );
 	$('html, body').animate({
-        scrollTop: $('#full-list').offset().top 
+        scrollTop: $('.sankey-helper-text').offset().top 
     }, 2000);
 });
 
