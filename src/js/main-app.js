@@ -4,8 +4,14 @@ require('./charts/sankey-chart.js');
 require('./accordion-table.js');
 
 $('.scroll-to').click(function(e) {
+	let isMobile = $(window).width() < 768;
+	if (isMobile) {
+		var offset = $('.list-helper-text').offset().top;
+	} else {
+		var offset = $('.sankey-helper-text').offset().top;
+	}
 	$('html, body').animate({
-        scrollTop: $('.sankey-helper-text').offset().top 
+        scrollTop: offset
     }, 2000);
 });
 

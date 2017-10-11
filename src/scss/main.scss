@@ -44,10 +44,18 @@
 	}
 }
 
+.list-helper-text {
+	display: none;
+}
+
 @media (max-width: $width-medium) {
     #accordion {
     	display: block;
     	margin-top: 40px;
+    }
+
+    .list-helper-text {
+    	display: block;
     }
 }
 
