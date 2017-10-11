@@ -6,15 +6,6 @@
 
 ## Data pipeline
 
-Raw data from ___: `data/UCB funding by unit sponsor year 4-10-2017.pdf`
-
-Convert to CSVs 25 pages at a time: `data/separate_CSVs`
-
-Manually combine & correct typos: `data/combined.xlsx`
-
-
-
-
 ©2017 The Daily Californian
 
 
