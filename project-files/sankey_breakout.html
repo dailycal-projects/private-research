@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <script src="https://d3js.org/d3.v4.min.js"></script>
-<script type="text/javascript" src="/dist/js/d3-sankey1.js"></script>
+<script type="text/javascript" src="/src/js/d3-sankey_breakout.js"></script>
 <div id="chart"></div>
 <script>
 
 var margin = {top: 100, right: 200, bottom: 100, left: 200},
-    width = 650 - margin.left - margin.right, //750 /25
-    height = 600 - margin.top - margin.bottom; //700 675
+    width = 875 - margin.left - margin.right, //750 /25
+    height = 920 - margin.top - margin.bottom; //700 675
 
 var svg = d3.select("#chart").append("svg")
     .attr("width", width+margin.left+margin.right)
@@ -17,7 +17,7 @@ var svg = d3.select("#chart").append("svg")
 
 var formatNumber = d3.format(".2s"),
     format = function(d) { return "$" + formatNumber(d); },
-    color = d3.scaleOrdinal(d3.schemeCategory20);
+    color = {"sponsors": "#9467BD", "targets": "#AEC7E8"};
 
 var sankey = d3.sankey()
   .nodeWidth(15)
@@ -28,7 +28,7 @@ var link = svg.append("g")
     .attr("class", "links")
     .attr("fill", "none")
     .attr("stroke", "#000")
-    .attr("stroke-opacity", 0.2)
+    .attr("stroke-opacity", 0.1)
   .selectAll("path");
 
 var node = svg.append("g")
@@ -52,8 +52,8 @@ var tooltip = d3.select("#chart")
 
 
 d3.queue()
-  .defer(d3.json, "top5_industry_links.json")
-  .defer(d3.json, "../src/data/other_sponsors.json")
+  .defer(d3.json, "top6_industry_links.json")
+  .defer(d3.json, "../src/data/other_sponsors_1011.json")
   .await(analyze);
 
 function analyze (error, industry, other) {
@@ -63,8 +63,16 @@ function analyze (error, industry, other) {
   industry_data = industry;
   sankey(industry);
 
+  var links_nonneg = {"links": []};
+
+  industry.links.forEach(function(d) {
+    if (d.value > 0) {
+      links_nonneg["links"].push(d);
+    }
+  });
+
   link = link
-    .data(industry.links)
+    .data(links_nonneg.links)
     .enter().append("path")
       .attr("d", d3.sankeyLinkHorizontal())
       .attr("stroke-width", function(d) { return Math.max(1, d.width); })
@@ -87,7 +95,7 @@ function analyze (error, industry, other) {
           awards.forEach(function(d) {
             // text += d.sponsor + " " + format(d.value) + "\n";
             text += "<tr>" + "<td>" + d.sponsor + "</td>";
-            text += "<td>" + format(d.value) + "</td></tr>";
+            text += "<td>" + format(d.with_neg) + "</td></tr>";
           });
           text += "</table>"
           tooltip.html(text);
@@ -119,35 +127,35 @@ function analyze (error, industry, other) {
       .attr("height", function(d) { return d.y1 - d.y0; })
       .attr("width", function(d) { return d.x1 - d.x0; })
       .attr("fill", function(d) {
-        return color(d.cat); });
+        return color[(d.type)]; });
 
-  // node.append("text")
-  //     .attr("x", function(d) { return d.x0 + 20; })
-  //     .attr("y", function(d) { return (d.y1 + d.y0) / 2; })
-  //     .attr("dy", "0.35em")
-  //     .attr("text-anchor", "start")
-  //     .text(function(d) { return d.abbrev; }) // d.cat + " " + format(d.value
-  //     .style("font", "12px sans-serif")
-  //     .style("font-weight", "bold")
-  //   .filter(function(d) { return d.x0 < width/2; })
-  //     .attr("x", function(d) { return d.x1 - 20; })
-  //     .attr("text-anchor", "end");
-  // //
-  // node.append("text")
-  //     .attr("x", function(d) { return d.x0 + 20; })
-  //     .attr("y", function(d) { return ((d.y1 + d.y0) / 2) + 11; })
-  //     .attr("dy", "0.35em")
-  //     .attr("text-anchor", "start")
-  //     .text(function(d) {
-  //       if (d.cat === d.name) {
-  //         return format(d.value);
-  //       }
-  //       return d.cat + " " + format(d.value); })
-  //     .style("font", "11px sans-serif")
-  //     .style("font-weight", "normal")
-  //   .filter(function(d) { return d.x0 < width/2; })
-  //     .attr("x", function(d) { return d.x1 - 20; })
-  //     .attr("text-anchor", "end");
+  node.append("text")
+      .attr("x", function(d) { return d.x0 + 20; })
+      .attr("y", function(d) { return (d.y1 + d.y0) / 2; })
+      .attr("dy", "0.35em")
+      .attr("text-anchor", "start")
+      .text(function(d) { return d.abbrev; }) // d.cat + " " + format(d.value
+      .style("font", "12px sans-serif")
+      .style("font-weight", "bold")
+    .filter(function(d) { return d.x0 < width/2; })
+      .attr("x", function(d) { return d.x1 - 20; })
+      .attr("text-anchor", "end");
+  //
+  node.append("text")
+      .attr("x", function(d) { return d.x0 + 20; })
+      .attr("y", function(d) { return ((d.y1 + d.y0) / 2) + 11; })
+      .attr("dy", "0.35em")
+      .attr("text-anchor", "start")
+      .text(function(d) {
+        if (d.cat === d.name) {
+          return format(d.value);
+        }
+        return d.cat + " " + format(d.value); })
+      .style("font", "11px sans-serif")
+      .style("font-weight", "normal")
+    .filter(function(d) { return d.x0 < width/2; })
+      .attr("x", function(d) { return d.x1 - 20; })
+      .attr("text-anchor", "end");
 
 
   };

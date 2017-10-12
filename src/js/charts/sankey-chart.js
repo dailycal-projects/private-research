@@ -1,7 +1,7 @@
 var d3 = require('d3');
 var d3Sankey = require('../d3-sankey.js');
-const industry = require('../../data/industry_1009.json'); //industry_1011 for new mapping and data
-const other = require('../../data/other_sponsors_1009.json'); //other_sponsors_1011 for new mapping and data
+const industry = require('../../data/industry_1011.json');
+const other = require('../../data/other_sponsors_1011.json');
 
 function draw() {
 
