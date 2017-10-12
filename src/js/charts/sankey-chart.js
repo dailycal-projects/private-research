@@ -1,6 +1,6 @@
 var d3 = require('d3');
 var d3Sankey = require('../d3-sankey.js');
-const industry = require('../../data/industry_1009.json');
+const industry = require('../../data/industry_1009.json'); //
 const other = require('../../data/other_sponsors_1009.json');
 
 function draw() {
@@ -94,7 +94,11 @@ function draw() {
         .attr("y", function(d) { return (d.y1 + d.y0) / 2; })
         .attr("dy", "0.35em")
         .attr("text-anchor", "start")
-        .text(function(d) { return d.abbrev; })
+        .text(function(d) {
+          if (d.abbrev == "California Institute for Quantitative Biosciences") {
+            return "California Institute for Quantitative";
+          }
+          return d.abbrev; })
         .style("font-weight", "bold")
       .filter(function(d) { return d.x0 < width/2; })
         .attr("x", function(d) { return d.x1 - 20; })
@@ -102,7 +106,22 @@ function draw() {
 
     node.append("text")
         .attr("x", function(d) { return d.x0 + 20; })
-        .attr("y", function(d) { return ((d.y1 + d.y0) / 2) + 11; })
+        .attr("y", function(d) { return (d.y1 + d.y0) / 2 + 10; })
+        .attr("dy", "0.35em")
+        .attr("text-anchor", "start")
+        .text(function(d) {
+          if (d.abbrev == "California Institute for Quantitative Biosciences") {
+            return "Biosciences";
+          }})
+        .style("font-weight", "bold");
+
+    node.append("text")
+        .attr("x", function(d) { return d.x0 + 20; })
+        .attr("y", function(d) {
+          if (d.abbrev == "California Institute for Quantitative Biosciences") {
+            return ((d.y1 + d.y0) / 2) + 20;
+          }
+          return ((d.y1 + d.y0) / 2) + 11; })
         .attr("dy", "0.35em")
         .attr("text-anchor", "start")
         .text(function(d) {
@@ -127,7 +146,10 @@ function draw() {
   } else {
     var height = 4000 - margin.top - margin.bottom;
   }
-      
+
+
+
+
 
   //clear previous
 
@@ -149,10 +171,10 @@ function draw() {
     .style('text-anchor', 'end')
 
   svg.append('text')
-    .attr('x', width)
+    .attr('x', width-150)
     .attr('y', -30)
     .attr('class', 'header-label')
-    .text('UC Berkeley recipient');
+    .text('UC Berkeley organization or department');
 
   svg.append('line')
     .attr('x1', -margin.left)
@@ -162,7 +184,12 @@ function draw() {
     .attr('class', 'header-line')
 
   var formatNumber = d3.format(".2s"),
-      format = function(d) { return "$" + formatNumber(d); },
+      format = function(d) {
+        var formatted = "$" + formatNumber(d);
+        if (formatted.includes("k")) {
+          return formatted.replace('k', 'K');
+        }
+        return formatted;},
       color = {"sponsors": "#9467BD", "targets": "#AEC7E8"};
 
   var sankey = d3Sankey.sankey()
