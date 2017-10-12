@@ -1,7 +1,6 @@
 const prompt = require('gulp-prompt');
 const rename = require('gulp-rename');
 const awspublish = require('gulp-awspublish');
-//const invalidate = require('gulp-cloudfront-invalidate-aws-publish');
 const gulp = require('gulp');
 const fail = require('gulp-fail');
 const gulpIf = require('gulp-if');
@@ -20,7 +19,6 @@ module.exports = () => {
     secretAccessKey: process.env.awsSecretKey,
     params: {
       Bucket: 'stage-projects.dailycal.org',
-      //CloudFront: 'E3V6OHE700RHMR',
     },
   });
   const awsDirectory = meta.publishPath;

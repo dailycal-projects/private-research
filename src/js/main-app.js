@@ -1,7 +1,7 @@
 require('../scss/main.scss');
 require('./resizer.js');
 require('./charts/sankey-chart.js');
-require('./accordion-table.js');
+require('./sponsor-table.js');
 
 $('.scroll-to').click(function(e) {
 	let isMobile = $(window).width() < 768;
@@ -20,7 +20,6 @@ window.$('.icon-facebook').click((e) => {
   const uri = encodeURIComponent(window.location.href);
   window.open(`https://www.facebook.com/sharer/sharer.php?u=${uri}`);
 });
-
 
 window.$('.icon-twitter').click((e) => {
   e.preventDefault();

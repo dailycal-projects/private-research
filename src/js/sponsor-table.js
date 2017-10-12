@@ -10,7 +10,7 @@ var first = 0;
   Object.keys(data).forEach(function(d) {
     var href = d.replace(/&/g, "").replace(/,./g, "").replace(/'/g, "").replace(/ /g, "_");
 
-    d3.select("#accordion")
+    d3.select("#sponsor-table")
       .append("div")
       .attr("id", `p_${href}`)
       .attr('class', 'recipient')
