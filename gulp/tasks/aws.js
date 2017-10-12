@@ -1,7 +1,7 @@
 const prompt = require('gulp-prompt');
 const rename = require('gulp-rename');
 const awspublish = require('gulp-awspublish');
-const invalidate = require('gulp-cloudfront-invalidate-aws-publish');
+//const invalidate = require('gulp-cloudfront-invalidate-aws-publish');
 const gulp = require('gulp');
 const fail = require('gulp-fail');
 const gulpIf = require('gulp-if');
@@ -20,7 +20,7 @@ module.exports = () => {
     secretAccessKey: process.env.awsSecretKey,
     params: {
       Bucket: 'stage-projects.dailycal.org',
-      CloudFront: 'E3V6OHE700RHMR',
+      //CloudFront: 'E3V6OHE700RHMR',
     },
   });
   const awsDirectory = meta.publishPath;
@@ -37,12 +37,12 @@ module.exports = () => {
     /.*\.csv$/, // application data
   ];
 
-  const cloudFrontConfig = {
+  /*const cloudFrontConfig = {
     distribution: 'E3V6OHE700RHMR',
     accessKeyId: process.env.awsAccessKey,
     secretAccessKey: process.env.awsSecretKey,
     indexRootPath: true,
-  };
+  };*/
 
   return gulp.src('./dist/**/*')
     .pipe(gulpIf(() => {
@@ -69,7 +69,7 @@ module.exports = () => {
     .pipe(publisher.publish(headers, { force: false }))
     .pipe(publisher.sync(awsDirectory))
     // eslint-disable-next-line no-extra-boolean-cast
-    .pipe(!!gutil.env.invalidate ? invalidate(cloudFrontConfig) : gutil.noop())
+    //.pipe(!!gutil.env.invalidate ? invalidate(cloudFrontConfig) : gutil.noop())
     .pipe(publisher.cache())
     .pipe(awspublish.reporter())
     .on('end', () => {
