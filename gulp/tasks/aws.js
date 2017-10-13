@@ -18,7 +18,7 @@ module.exports = () => {
     accessKeyId: process.env.awsAccessKey,
     secretAccessKey: process.env.awsSecretKey,
     params: {
-      Bucket: 'stage-projects.dailycal.org',
+      Bucket: 'projects.dailycal.org',
     },
   });
   const awsDirectory = meta.publishPath;
