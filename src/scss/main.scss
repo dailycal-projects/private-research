@@ -24,6 +24,11 @@
 
 @import 'sankey-chart';
 
+.dc-correction {
+	font-style: italic;
+	font-size: 14px;
+}
+
 #sponsor-table {
 	display: none;
 	max-width: 600px;
